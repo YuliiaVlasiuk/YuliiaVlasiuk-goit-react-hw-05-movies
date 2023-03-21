@@ -1,25 +1,37 @@
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+import axios from 'axios';
+const API_KEY = '7fcadb4f45c26a7f0b88a5d0e3a0d367';
+
 const Reviews = () => {
-    return (
-      <section>
-        <div>
-          <h2>First review - 4.6/5</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem harum
-            architecto sapiente corporis, voluptatem quas voluptatibus fugiat
-            nulla commodi quidem, dolorem distinctio inventore blanditiis illo
-            tenetur aut enim ex laborum!
-          </p>
-        </div>
-        <div>
-          <h2>Second review - 4.8/5</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti
-            nihil ea, eaque fugit amet possimus officiis asperiores aperiam facere
-            et?
-          </p>
-        </div>
-      </section>
-    );
-  };
+  const [reviews, setReviews] = useState([]);
+  const { movieId } = useParams();
   
-  export default Reviews
+
+  const getReviews = async id => {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${API_KEY}&language=en-US&page=1`
+    );
+    return response.data;
+  };
+ 
+  
+  useEffect(() => {
+    getReviews(movieId).then(data => setReviews(data.results));
+  }, [movieId]);
+
+  return (
+    <ul>
+      {reviews.length > 0
+        ? reviews.map(({ author, content, id }) => (
+            <li key={id}>
+              <h3>{author}</h3>
+              <p>{content}</p>
+            </li>
+          ))
+        : "Sorry, we don't have any review for this movie"}
+    </ul>
+  );
+};
+export default Reviews;

@@ -1,5 +1,6 @@
 import { useParams, useLocation, Link, Outlet } from 'react-router-dom';
 import { BackLink } from '../components/BackLink';
+import { Suspense } from 'react';
 
 import {
   GenresList,
@@ -39,9 +40,49 @@ const MovieDetails = () => {
   const scoreToFixed = score.toFixed(2);
 
   return (
+    // <main>
+    //   <BackLink to={backLinkHref}>Back to products</BackLink>
+
+    //   <MovieBox>
+    //     <img
+    //       src={`https://image.tmdb.org/t/p/w300${poster_path}`}
+    //       width={200}
+    //       loading="lazy"
+    //       alt="poster"
+    //     />
+    //     <MovieInfo>
+    //       <Title>{original_title}</Title>
+    //       <h3>User score: {scoreToFixed}%</h3>
+    //       <h3>Overview</h3>
+    //       <p>{overview} </p>
+    //       <h3>Genres</h3>
+    //       <GenresList>
+    //         {genres &&
+    //           genres.length &&
+    //           genres.map(({ id, name }) => <li key={id}>{name}</li>)}
+    //       </GenresList>
+    //     </MovieInfo>
+    //   </MovieBox>
+    //   <InfoBox>
+    //     <h4>Additional information</h4>
+    //     <ul>
+    //       <li>
+    //         <Link to={`/movies/${movieId}/cast`} >
+    //           Cast
+    //         </Link>
+    //       </li>
+    //       <li>
+    //         <Link to={`/movies/${movieId}/reviews`}>
+    //           Reviews
+    //         </Link>
+    //       </li>
+    //     </ul>
+    //   </InfoBox>
+    //   <Outlet />
+    // </main>
+
     <main>
       <BackLink to={backLinkHref}>Back to products</BackLink>
-
       <MovieBox>
         <img
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
@@ -62,25 +103,22 @@ const MovieDetails = () => {
           </GenresList>
         </MovieInfo>
       </MovieBox>
+     
       <InfoBox>
         <h4>Additional information</h4>
         <ul>
           <li>
-            <Link to="cast" state={{ ...location.state }}>
-              Cast
-            </Link>
+            <Link to="cast">Cast</Link>
           </li>
           <li>
-            {' '}
-            <Link to="reviews" state={{ ...location.state }}>
-              Reviews
-            </Link>
+            <Link to="reviews">Reviews</Link>
           </li>
         </ul>
       </InfoBox>
-      <Outlet />
+      <Suspense fallback={<div>Loading subpage...</div>}>
+        <Outlet />
+      </Suspense>
     </main>
   );
 };
-
 export default MovieDetails;
