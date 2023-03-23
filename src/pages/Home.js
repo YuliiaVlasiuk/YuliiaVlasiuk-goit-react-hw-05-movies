@@ -3,6 +3,7 @@ import { MovieList } from '../components/MovieList';
 
 import axios from 'axios';
 const API_KEY = '7fcadb4f45c26a7f0b88a5d0e3a0d367';
+const BASE_URL = `https://api.themoviedb.org/3/`;
 
 export const Home = () => {
   const [movies, setMovies] = useState([]);
@@ -10,7 +11,7 @@ export const Home = () => {
   async function getMovies() {
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`
+        `${BASE_URL}trending/movie/day?api_key=${API_KEY}`
       );
       setMovies(response.data.results);
     } catch (error) {
@@ -24,6 +25,7 @@ export const Home = () => {
 
   return (
     <main>
+      <h3>Tranding today</h3>
       <MovieList movies={movies} />
     </main>
   );

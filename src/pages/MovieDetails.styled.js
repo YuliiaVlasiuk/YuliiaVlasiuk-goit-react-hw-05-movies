@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+// export const MovieImg = styled.img`
+//   display: flex;
+//   padding: 20px;
+//   border-bottom: solid 1px grey;
+// `;
+
+
 export const Title = styled.h2`
   margin: 0;
 `;
@@ -37,6 +44,21 @@ export const LinkBack = styled(Link)`
   column-gap: 10px;
 `;
 export const InfoBox = styled.div`
-  padding: 20px;
+  padding: 5px;
   border-bottom: solid 1px grey;
+`;
+
+export const InfoLi = styled.li`
+  width: 100px;
+  height: 25px;
+  &:hover {
+    border-radius: 5px;
+    box-shadow: 1px 2px 4px 3px rgba(0, 0, 0, 0.5);
+  }
+`;
+
+export const InfoLink = styled(Link)`
+  text-decoration: none;
+  padding-left: 10px;
+  color: black;
 `;
