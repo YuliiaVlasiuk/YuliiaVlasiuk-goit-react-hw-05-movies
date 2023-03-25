@@ -52,6 +52,15 @@ const Movies = () => {
     }
   }, [movieName, setSearchParams]);
 
+
+  useEffect(() => {
+    if (movies === []) {
+      return;
+    }
+    searchMovieByName(movieName);
+    
+  }, [movies, movieName]);
+  
   return (
     <main>
       <div>
